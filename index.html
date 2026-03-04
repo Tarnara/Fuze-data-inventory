@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Inventory System - FUZE Post</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Sarabun', sans-serif; background-color: #f8fafc; }
+        .fuze-gradient { background: linear-gradient(135deg, #002d72 0%, #0056b3 100%); }
+        .fuze-blue { color: #002d72; }
+        .bg-fuze-blue { background-color: #002d72; }
+        .modal { transition: opacity 0.25s ease; visibility: hidden; opacity: 0; }
+        .modal.active { visibility: visible; opacity: 1; }
+        .field-label { font-weight: 700; color: #334155; font-size: 0.9rem; margin-bottom: 0.4rem; display: block; }
+        .input-style { width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 0.75rem; outline: none; transition: all 0.2s; }
+        .input-style:focus { border-color: #0056b3; ring: 2px; ring-color: #bfdbfe; }
+    </style>
+</head>
+<body>
+
+    <header class="fuze-gradient text-white py-5 px-6 shadow-md">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-extrabold tracking-tight uppercase">Data Inventory</h1>
+                <p class="text-xs opacity-80 font-light">FUZE POST CO., LTD.</p>
+            </div>
+            
+            <div id="userInfoDisplay" class="hidden flex items-center gap-4">
+                <div class="text-right border-r border-white/20 pr-4">
+                    <p id="displayUsername" class="text-sm font-bold"></p>
+                    <p class="text-[10px] opacity-70">Authenticated</p>
+                </div>
+                <button onclick="logout()" class="text-xs bg-white/10 hover:bg-white/20 border border-white/30 px-3 py-2 rounded-lg transition-all">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto p-4 md:p-10">
+        
+        <div id="loginSection" class="bg-white p-8 md:p-12 rounded-[2rem] shadow-2xl border border-slate-100 text-center max-w-md mx-auto mt-10">
+            <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-800 mb-2">ยินดีต้อนรับ</h2>
+            <p class="text-slate-500 text-sm mb-8">กรุณาเข้าสู่ระบบด้วย Email บริษัทเพื่อดำเนินการ</p>
+            <div class="text-left mb-6">
+                <label class="field-label">Business Email</label>
+                <input type="email" id="emailInput" class="input-style" placeholder="name@fuzepost.co.th">
+            </div>
+            <button onclick="validateAndLogin()" class="w-full bg-fuze-blue text-white py-4 rounded-xl font-bold hover:bg-blue-800 shadow-lg transition-all active:scale-95">เข้าสู่ระบบ</button>
+        </div>
+
+        <div id="mainForm" class="hidden space-y-8 animate-in fade-in duration-500">
+            <div class="bg-white p-6 md:p-10 rounded-[2rem] shadow-xl border border-slate-100">
+                <form id="dataForm" class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
+                    
+                    <div>
+                        <label class="field-label">1. ชื่อตำแหน่ง (แผนก)</label>
+                        <select id="dept" required class="input-style bg-slate-50">
+                            <option value="">-- เลือกแผนก --</option>
+                            <option value="IT">IT</option><option value="HR">HR</option><option value="Finance">Finance</option>
+                            <option value="Legal">Legal</option><option value="transport">transport</option><option value="HUB">HUB</option>
+                            <option value="Claim">Claim</option><option value="CS">CS</option><option value="Sales">Sales</option>
+                            <option value="Administrative">Administrative</option><option value="Marketing">Marketing</option><option value="OS">OS</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="field-label">2. ชื่อข้อมูล (ระบุเป็นข้อความ)</label>
+                        <input type="text" id="dataName" required class="input-style" placeholder="เช่น รายชื่อลูกค้า, ประวัติการจัดส่ง">
+                    </div>
+
+                    <div>
+                        <label class="field-label">3. เจ้าของข้อมูล (ตำแหน่ง)</label>
+                        <input type="text" id="owner" required class="input-style" placeholder="ระบุตำแหน่งผู้ดูแลข้อมูลนี้">
+                    </div>
+
+                    <div>
+                        <label class="field-label">4. ประเภทข้อมูล</label>
+                        <select id="dataType" required class="input-style">
+                            <option value="">-- เลือกประเภท --</option>
+                            <option value="ข้อมูลลูกค้า">ข้อมูลลูกค้า</option>
+                            <option value="ข้อมูลพนักงาน / คนขับรถ">ข้อมูลพนักงาน / คนขับรถ</option>
+                            <option value="ข้อมูลคู่ค้า">ข้อมูลคู่ค้า</option>
+                            <option value="ข้อมูล/เอกสารภายในบริษัท">ข้อมูล/เอกสารภายในบริษัท</option>
+                            <option value="ข้อมูลระบบ (IT)">ข้อมูลระบบ (IT)</option>
+                            <option value="เอกสารทางกฎหมาย">เอกสารทางกฎหมาย</option>
+                            <option value="ข้อมูลการให้บริการ">ข้อมูลการให้บริการ</option>
+                            <option value="ข้อมูลการเงิน">ข้อมูลการเงิน</option>
+                            <option value="ข้อมูลเชิงวิเคราะห์">ข้อมูลเชิงวิเคราะห์</option>
+                        </select>
+                    </div>
+
+                    <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-blue-50/50 p-5 rounded-2xl border border-blue-100">
+                            <div class="flex justify-between items-center mb-3">
+                                <label class="text-xs font-bold text-blue-800 uppercase tracking-wider">5. ข้อมูลส่วนบุคคล (PII)</label>
+                                <button type="button" onclick="openInfoModal('modalPII')" class="text-[10px] bg-blue-600 text-white px-3 py-1 rounded-full font-bold">รายละเอียด</button>
+                            </div>
+                            <select id="hasPii" class="input-style border-blue-200">
+                                <option value="ไม่มี">ไม่มี</option><option value="มี">มี</option>
+                            </select>
+                        </div>
+                        <div class="bg-red-50/50 p-5 rounded-2xl border border-red-100">
+                            <div class="flex justify-between items-center mb-3">
+                                <label class="text-xs font-bold text-red-800 uppercase tracking-wider">6. ข้อมูลอ่อนไหว (Sensitive)</label>
+                                <button type="button" onclick="openInfoModal('modalSen')" class="text-[10px] bg-red-600 text-white px-3 py-1 rounded-full font-bold">รายละเอียด</button>
+                            </div>
+                            <select id="hasSensitive" class="input-style border-red-200">
+                                <option value="ไม่มี">ไม่มี</option><option value="มี">มี</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                        <label class="field-label">7. จัดเก็บข้อมูลไว้ที่ใด (เลือกได้หลายข้อ)</label>
+                        <div class="grid grid-cols-1 gap-3 mt-3 text-sm text-slate-600">
+                            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" name="storage" value="Cloud" class="w-4 h-4"> Cloud (OneDrive/SharePoint)</label>
+                            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" name="storage" value="คอมฯส่วนตัว" class="w-4 h-4"> คอมพิวเตอร์ส่วนตัว</label>
+                            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" name="storage" value="คอมฯบริษัท" class="w-4 h-4"> คอมพิวเตอร์บริษัท</label>
+                            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" name="storage" value="External Drive" class="w-4 h-4"> External Drive</label>
+                            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" name="storage" value="กระดาษ" class="w-4 h-4"> กระดาษ / แฟ้มเอกสาร</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="field-label">8. จำนวนผู้ที่เข้าถึงข้อมูล (โดยประมาณ)</label>
+                        <input type="number" id="userCount" class="input-style" value="0">
+                        <p class="text-[11px] text-slate-400 mt-2 italic">* ระบุเป็นตัวเลขจำนวนคน</p>
+                    </div>
+
+                    <div class="md:col-span-2 bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                        <label class="field-label">9. แผนกที่สามารถเข้าถึงข้อมูลชุดนี้ได้</label>
+                        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 text-xs mt-4">
+                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="IT"> IT</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="HR"> HR</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Finance"> Finance</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Legal"> Legal</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="transport"> transport</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="HUB"> HUB</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Claim"> Claim</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="CS"> CS</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Sales"> Sales</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Admin"> Admin</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Marketing"> Marketing</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="OS"> OS</label>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                        <label class="field-label">10. มาตรการการปกป้องข้อมูล</label>
+                        <div class="flex flex-col gap-3 mt-3 text-sm">
+                            <label class="flex items-center gap-3"><input type="checkbox" name="protect" value="มีการเข้ารหัส"> มีการเข้ารหัส (Encryption)</label>
+                            <label class="flex items-center gap-3"><input type="checkbox" name="protect" value="มีการสำรองข้อมูล"> มีการสำรองข้อมูล (Backup)</label>
+                            <label class="flex items-center gap-3 text-red-600 font-semibold"><input type="checkbox" name="protect" value="ไม่มีการป้องกันใดๆ"> ไม่มีการป้องกันใดๆ</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="field-label">11. อายุการเก็บรักษา (ระบุเป็นจำนวนปี)</label>
+                        <input type="text" id="retention" class="input-style" placeholder="เช่น 5 หรือ 10">
+                    </div>
+
+                    <div class="md:col-span-2 pt-6">
+                        <button type="button" onclick="confirmSave()" class="w-full bg-fuze-blue text-white font-bold py-5 rounded-2xl hover:bg-blue-800 shadow-xl transition-all transform active:scale-95 text-lg">
+                            บันทึกข้อมูล
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-lg border overflow-hidden mb-20">
+                <div class="bg-slate-900 p-5 text-white flex justify-between items-center">
+                    <h3 class="font-bold text-sm">📋 ประวัติการบันทึก (ล่าสุด)</h3>
+                    <span id="syncStatus" class="text-[10px] bg-emerald-500 px-3 py-1 rounded-full font-bold uppercase tracking-widest">Ready</span>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-50 border-b">
+                            <tr>
+                                <th class="p-5 font-bold text-slate-600">แผนก</th>
+                                <th class="p-5 font-bold text-slate-600">ชุดข้อมูล</th>
+                                <th class="p-5 font-bold text-slate-600">ประเภท</th>
+                                <th class="p-5 font-bold text-slate-600">สถานะ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="logBody">
+                            <tr><td colspan="4" class="p-10 text-center text-slate-400 italic">ยังไม่พบข้อมูลการบันทึกในเซสชันนี้</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="confirmModal" class="modal fixed inset-0 flex items-center justify-center z-50 p-4">
+        <div class="absolute inset-0 bg-slate-900/70 backdrop-blur-md" onclick="closeModal('confirmModal')"></div>
+        <div class="bg-white w-full max-w-sm rounded-[2rem] shadow-2xl z-50 p-8 text-center">
+            <h3 class="text-xl font-bold text-slate-800 mb-4">ยืนยันการส่งข้อมูล?</h3>
+            <p class="text-slate-500 mb-8 text-sm leading-relaxed">ข้อมูลจะถูกส่งไปยังระบบส่วนกลาง<br>กรุณาตรวจสอบความถูกต้องก่อนกดบันทึก</p>
+            <div class="flex gap-4">
+                <button onclick="closeModal('confirmModal')" class="flex-1 py-3 border border-slate-200 rounded-xl font-semibold text-slate-500 hover:bg-slate-50">ยกเลิก</button>
+                <button onclick="submitData()" class="flex-1 py-3 bg-fuze-blue text-white rounded-xl font-bold hover:bg-blue-800">ยืนยัน</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalPII" class="modal fixed inset-0 flex items-center justify-center z-50 p-4">
+        <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm" onclick="closeModal('modalPII')"></div>
+        <div class="bg-white w-full max-w-md rounded-2xl z-50 p-8 shadow-2xl">
+            <h4 class="font-bold text-blue-700 text-lg mb-4">ข้อมูลส่วนบุคคล (PII) คืออะไร?</h4>
+            <div class="space-y-3 text-sm text-slate-600 leading-relaxed">
+                <p>ข้อมูลที่สามารถใช้ระบุตัวตนบุคคลได้ ไม่ว่าทางตรงหรือทางอ้อม เช่น:</p>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li>ชื่อ-นามสกุล, ชื่อเล่น</li>
+                    <li>เบอร์โทรศัพท์, อีเมลส่วนตัว</li>
+                    <li>เลขบัตรประชาชน, เลขใบขับขี่</li>
+                    <li>ที่อยู่บ้าน, พิกัด GPS</li>
+                </ul>
+            </div>
+            <button onclick="closeModal('modalPII')" class="w-full mt-8 bg-slate-100 py-3 rounded-xl font-bold text-slate-700">เข้าใจแล้ว</button>
+        </div>
+    </div>
+
+    <div id="modalSen" class="modal fixed inset-0 flex items-center justify-center z-50 p-4">
+        <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm" onclick="closeModal('modalSen')"></div>
+        <div class="bg-white w-full max-w-md rounded-2xl z-50 p-8 shadow-2xl border-t-8 border-red-500">
+            <h4 class="font-bold text-red-700 text-lg mb-4">ข้อมูลอ่อนไหว (Sensitive) คืออะไร?</h4>
+            <div class="space-y-3 text-sm text-slate-600 leading-relaxed">
+                <p>ข้อมูลที่มีความเสี่ยงสูงต่อการถูกเลือกปฏิบัติหรือกระทบสิทธิมนุษยชน เช่น:</p>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li>ประวัติสุขภาพ / ผลตรวจร่างกาย</li>
+                    <li>ศาสนา, เชื้อชาติ</li>
+                    <li>ข้อมูลชีวภาพ (ลายนิ้วมือ, ใบหน้า)</li>
+                    <li>ประวัติอาชญากรรม</li>
+                </ul>
+            </div>
+            <button onclick="closeModal('modalSen')" class="w-full mt-8 bg-slate-100 py-3 rounded-xl font-bold text-slate-700">เข้าใจแล้ว</button>
+        </div>
+    </div>
+
+    <script>
+        // *** วาง URL จาก Power Automate ของคุณที่นี่ ***
+        const FLOW_URL = "https://default5db8bf0e85924ed082b2a6d4d77933.d4.environment.api.powerplatform.com/workflows/..."; 
+
+        function validateAndLogin() {
+            const email = document.getElementById('emailInput').value.trim().toLowerCase();
+            if (email.endsWith("@fuzepost.co.th")) {
+                const username = email.split('@')[0];
+                localStorage.setItem('fuzeUser', username);
+                showMainApp(username);
+            } else {
+                alert("❌ กรุณาใช้ Email บริษัท (@fuzepost.co.th) เท่านั้น");
+            }
+        }
+
+        function showMainApp(username) {
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('mainForm').classList.remove('hidden');
+            document.getElementById('userInfoDisplay').classList.remove('hidden');
+            document.getElementById('displayUsername').innerText = username;
+            loadLogs();
+        }
+
+        function logout() {
+            if(confirm("ต้องการออกจากระบบใช่หรือไม่?")) {
+                localStorage.removeItem('fuzeUser');
+                location.reload();
+            }
+        }
+
+        function confirmSave() {
+            const required = ['dept', 'dataName', 'owner', 'dataType'];
+            for(let id of required) {
+                if(!document.getElementById(id).value) return alert("กรุณากรอกข้อมูลในข้อ 1-4 ให้ครบถ้วน");
+            }
+            document.getElementById('confirmModal').classList.add('active');
+        }
+
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        function openInfoModal(id) { document.getElementById(id).classList.add('active'); }
+
+        async function submitData() {
+            closeModal('confirmModal');
+            document.getElementById('syncStatus').innerText = "PENDING...";
+            document.getElementById('syncStatus').className = "text-[10px] bg-amber-500 px-3 py-1 rounded-full font-bold uppercase tracking-widest";
+            
+            const payload = {
+                user: localStorage.getItem('fuzeUser'),
+                dept: document.getElementById('dept').value,
+                dataName: document.getElementById('dataName').value,
+                owner: document.getElementById('owner').value,
+                dataType: document.getElementById('dataType').value,
+                hasPii: document.getElementById('hasPii').value,
+                hasSensitive: document.getElementById('hasSensitive').value,
+                storage: Array.from(document.querySelectorAll('input[name="storage"]:checked')).map(el => el.value).join(', '),
+                userCount: parseInt(document.getElementById('userCount').value) || 0,
+                access: Array.from(document.querySelectorAll('input[name="access"]:checked')).map(el => el.value).join(', '),
+                protect: Array.from(document.querySelectorAll('input[name="protect"]:checked')).map(el => el.value).join(', '),
+                retention: document.getElementById('retention').value,
+                timestamp: new Date().toLocaleString('th-TH')
+            };
+
+            try {
+                const res = await fetch(FLOW_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if(res.ok) {
+                    alert("✅ ข้อมูลถูกบันทึกเข้า OneDrive สำเร็จ!");
+                    saveLocal(payload);
+                    document.getElementById('dataForm').reset();
+                    loadLogs();
+                } else {
+                    alert("❌ บันทึกไม่สำเร็จ: ตรวจสอบการตั้งค่า Schema ใน Power Automate");
+                }
+            } catch (e) {
+                alert("❌ เกิดข้อผิดพลาดในการเชื่อมต่อ (Network Error)");
+            } finally {
+                document.getElementById('syncStatus').innerText = "Ready";
+                document.getElementById('syncStatus').className = "text-[10px] bg-emerald-500 px-3 py-1 rounded-full font-bold uppercase tracking-widest";
+            }
+        }
+
+        function saveLocal(data) {
+            let logs = JSON.parse(localStorage.getItem('fuzeLogs') || "[]");
+            logs.unshift(data);
+            localStorage.setItem('fuzeLogs', JSON.stringify(logs.slice(0, 5)));
+        }
+
+        function loadLogs() {
+            const logs = JSON.parse(localStorage.getItem('fuzeLogs') || "[]");
+            const body = document.getElementById('logBody');
+            if(logs.length > 0) {
+                body.innerHTML = logs.map(l => `
+                    <tr class="border-b hover:bg-slate-50">
+                        <td class="p-5 font-bold fuze-blue">${l.dept}</td>
+                        <td class="p-5">${l.dataName}</td>
+                        <td class="p-5 text-slate-500">${l.dataType}</td>
+                        <td class="p-5 text-emerald-600 font-bold">SUCCESS</td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        window.onload = () => {
+            const user = localStorage.getItem('fuzeUser');
+            if(user) showMainApp(user);
+        }
+    </script>
+</body>
+</html>
