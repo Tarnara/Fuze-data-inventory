@@ -249,14 +249,16 @@
 
         function validateAndLogin() {
             const email = document.getElementById('emailInput').value.trim().toLowerCase();
-            if (email.endsWith("@fuzepost.co.th")) {
+            // แก้ไขเงื่อนไขให้รองรับทั้ง fuzepost.co.th และ scgjwd.com
+            if (email.endsWith("@fuzepost.co.th") || email.endsWith("@scgjwd.com")) {
                 const username = email.split('@')[0];
                 localStorage.setItem('fuzeUser', username);
                 showMainApp(username);
             } else {
-                alert("❌ กรุณาใช้ Email บริษัท (@fuzepost.co.th) เท่านั้น");
+                alert("❌ กรุณาใช้ Email บริษัท (@fuzepost.co.th หรือ @scgjwd.com) เท่านั้น");
             }
         }
+
 
         function showMainApp(username) {
             document.getElementById('loginSection').classList.add('hidden');
@@ -357,4 +359,5 @@
 </body>
 
 </html>
+
 
