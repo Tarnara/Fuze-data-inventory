@@ -245,7 +245,7 @@
 
     <script>
         // *** วาง URL จาก Power Automate ของคุณที่นี่ ***
-        const FLOW_URL = "https://default5db8bf0e85924ed082b2a6d4d77933.d4.environment.api.powerplatform.com/workflows/..."; 
+        const FLOW_URL = "https://default5db8bf0e85924ed082b2a6d4d77933.d4.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/a7bb29055f0648f5a331a0a7d6887c71/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=LXXDukKgbMKJpDwl5G52e6lfs4Ik4aJp3BYr3Uecvu8"; 
 
         function validateAndLogin() {
             const email = document.getElementById('emailInput').value.trim().toLowerCase();
@@ -355,4 +355,5 @@
         }
     </script>
 </body>
+
 </html>
