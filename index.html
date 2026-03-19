@@ -46,10 +46,10 @@
                 </svg>
             </div>
             <h2 class="text-2xl font-bold text-slate-800 mb-2">ยินดีต้อนรับ</h2>
-            <p class="text-slate-500 text-sm mb-8">กรุณาเข้าสู่ระบบด้วย Email บริษัทเพื่อดำเนินการ</p>
+            <p class="text-slate-500 text-sm mb-8">กรุณาเข้าสู่ระบบด้วย Email บริษัท (@fuzepost.co.th หรือ @scgjwd.com)</p>
             <div class="text-left mb-6">
                 <label class="field-label">Business Email</label>
-                <input type="email" id="emailInput" class="input-style" placeholder="name.x@fuzepost.co.th หรือ @scgjwd.com">
+                <input type="email" id="emailInput" class="input-style" placeholder="example@scgjwd.com">
             </div>
             <button onclick="validateAndLogin()" class="w-full bg-fuze-blue text-white py-4 rounded-xl font-bold hover:bg-blue-800 shadow-lg transition-all active:scale-95">เข้าสู่ระบบ</button>
         </div>
@@ -57,25 +57,25 @@
         <div id="mainForm" class="hidden space-y-8 animate-in fade-in duration-500">
             <div class="bg-white p-6 md:p-10 rounded-[2rem] shadow-xl border border-slate-100">
                 <form id="dataForm" class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
-                    
                     <div>
-    <label class="field-label">1. ชื่อตำแหน่ง (แผนก)</label>
-    <select id="dept" required class="input-style bg-slate-50">
-        <option value="">-- เลือกแผนก --</option>
-        <option value="IT">IT</option>
-        <option value="HR">HR</option>
-        <option value="Finance">Finance</option>
-        <option value="Legal">Legal</option>
-        <option value="transport">transport</option>
-        <option value="HUB">HUB</option>
-        <option value="Claim">Claim</option>
-        <option value="CS">CS</option>
-        <option value="Sales">Sales</option>
-        <option value="Administrative">Administrative</option>
-        <option value="Marketing">Marketing</option>
-        <option value="OS">OS</option>
-        <option value="Strategy">Strategy</option> </select>
-</div>
+                        <label class="field-label">1. ชื่อตำแหน่ง (แผนก)</label>
+                        <select id="dept" required class="input-style bg-slate-50">
+                            <option value="">-- เลือกแผนก --</option>
+                            <option value="IT">IT</option>
+                            <option value="HR">HR</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Legal">Legal</option>
+                            <option value="transport">transport</option>
+                            <option value="HUB">HUB</option>
+                            <option value="Claim">Claim</option>
+                            <option value="CS">CS</option>
+                            <option value="Sales">Sales</option>
+                            <option value="Administrative">Administrative</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="OS">OS</option>
+                            <option value="Strategy">Strategy</option>
+                        </select>
+                    </div>
 
                     <div>
                         <label class="field-label">2. ชื่อข้อมูล (ระบุเป็นข้อความ)</label>
@@ -142,22 +142,22 @@
                     </div>
 
                     <div class="md:col-span-2 bg-slate-50 p-6 rounded-2xl border border-slate-200">
-    <label class="field-label">9. แผนกที่สามารถเข้าถึงข้อมูลชุดนี้ได้</label>
-    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 text-xs mt-4">
-        <label class="flex items-center gap-2"><input type="checkbox" name="access" value="IT"> IT</label>
-        <label class="flex items-center gap-2"><input type="checkbox" name="access" value="HR"> HR</label>
-        <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Finance"> Finance</label>
-        <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Legal"> Legal</label>
-        <label class="flex items-center gap-2"><input type="checkbox" name="access" value="transport"> transport</label>
-        <label class="flex items-center gap-2"><input type="checkbox" name="access" value="HUB"> HUB</label>
-        <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Claim"> Claim</label>
-        <label class="flex items-center gap-2"><input type="checkbox" name="access" value="CS"> CS</label>
-        <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Sales"> Sales</label>
-        <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Admin"> Admin</label>
-        <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Marketing"> Marketing</label>
-        <label class="flex items-center gap-2"><input type="checkbox" name="access" value="OS"> OS</label>
-        <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Strategy"> Strategy</label> </div>
-</div>
+                        <label class="field-label">9. แผนกที่สามารถเข้าถึงข้อมูลชุดนี้ได้</label>
+                        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 text-xs mt-4">
+                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="IT"> IT</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="HR"> HR</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Finance"> Finance</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Legal"> Legal</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="transport"> transport</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="HUB"> HUB</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Claim"> Claim</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="CS"> CS</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Sales"> Sales</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Admin"> Admin</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Marketing"> Marketing</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="OS"> OS</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Strategy"> Strategy</label>
+                        </div>
                     </div>
 
                     <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
@@ -184,7 +184,7 @@
 
             <div class="bg-white rounded-3xl shadow-lg border overflow-hidden mb-20">
                 <div class="bg-slate-900 p-5 text-white flex justify-between items-center">
-                    <h3 class="font-bold text-sm">📋 ประวัติการบันทึก (ล่าสุด)</h3>
+                    <h3 class="font-bold text-sm">📋 ประวัติการบันทึกของคุณ (ล่าสุด)</h3>
                     <span id="syncStatus" class="text-[10px] bg-emerald-500 px-3 py-1 rounded-full font-bold uppercase tracking-widest">Ready</span>
                 </div>
                 <div class="overflow-x-auto">
@@ -198,7 +198,7 @@
                             </tr>
                         </thead>
                         <tbody id="logBody">
-                            <tr><td colspan="4" class="p-10 text-center text-slate-400 italic">ยังไม่พบข้อมูลการบันทึกในเซสชันนี้</td></tr>
+                            <tr><td colspan="4" class="p-10 text-center text-slate-400 italic">กำลังโหลดประวัติ...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -253,12 +253,10 @@
     </div>
 
     <script>
-        // *** วาง URL จาก Power Automate ของคุณที่นี่ ***
         const FLOW_URL = "https://default5db8bf0e85924ed082b2a6d4d77933.d4.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/a7bb29055f0648f5a331a0a7d6887c71/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=LXXDukKgbMKJpDwl5G52e6lfs4Ik4aJp3BYr3Uecvu8"; 
 
         function validateAndLogin() {
             const email = document.getElementById('emailInput').value.trim().toLowerCase();
-            // แก้ไขเงื่อนไขให้รองรับทั้ง fuzepost.co.th และ scgjwd.com
             if (email.endsWith("@fuzepost.co.th") || email.endsWith("@scgjwd.com")) {
                 const username = email.split('@')[0];
                 localStorage.setItem('fuzeUser', username);
@@ -273,7 +271,7 @@
             document.getElementById('mainForm').classList.remove('hidden');
             document.getElementById('userInfoDisplay').classList.remove('hidden');
             document.getElementById('displayUsername').innerText = username;
-            loadLogs();
+            loadLogs(); // โหลดประวัติเฉพาะของ user นี้
         }
 
         function logout() {
@@ -296,11 +294,12 @@
 
         async function submitData() {
             closeModal('confirmModal');
+            const currentUser = localStorage.getItem('fuzeUser');
             document.getElementById('syncStatus').innerText = "PENDING...";
             document.getElementById('syncStatus').className = "text-[10px] bg-amber-500 px-3 py-1 rounded-full font-bold uppercase tracking-widest";
             
             const payload = {
-                user: localStorage.getItem('fuzeUser'),
+                user: currentUser,
                 dept: document.getElementById('dept').value,
                 dataName: document.getElementById('dataName').value,
                 owner: document.getElementById('owner').value,
@@ -328,7 +327,7 @@
                     document.getElementById('dataForm').reset();
                     loadLogs();
                 } else {
-                    alert("❌ บันทึกไม่สำเร็จ: ตรวจสอบการตั้งค่า Schema ใน Power Automate");
+                    alert("❌ บันทึกไม่สำเร็จ: ตรวจสอบการตั้งค่าใน Power Automate");
                 }
             } catch (e) {
                 alert("❌ เกิดข้อผิดพลาดในการเชื่อมต่อ (Network Error)");
@@ -340,15 +339,20 @@
 
         function saveLocal(data) {
             let logs = JSON.parse(localStorage.getItem('fuzeLogs') || "[]");
+            data.ownerUser = localStorage.getItem('fuzeUser'); // ระบุเจ้าของข้อมูล
             logs.unshift(data);
-            localStorage.setItem('fuzeLogs', JSON.stringify(logs.slice(0, 5)));
+            localStorage.setItem('fuzeLogs', JSON.stringify(logs.slice(0, 10)));
         }
 
         function loadLogs() {
-            const logs = JSON.parse(localStorage.getItem('fuzeLogs') || "[]");
+            const currentUser = localStorage.getItem('fuzeUser');
+            const allLogs = JSON.parse(localStorage.getItem('fuzeLogs') || "[]");
+            // กรองประวัติเฉพาะของ User ปัจจุบัน
+            const userLogs = allLogs.filter(log => log.ownerUser === currentUser);
+            
             const body = document.getElementById('logBody');
-            if(logs.length > 0) {
-                body.innerHTML = logs.map(l => `
+            if(userLogs.length > 0) {
+                body.innerHTML = userLogs.map(l => `
                     <tr class="border-b hover:bg-slate-50">
                         <td class="p-5 font-bold fuze-blue">${l.dept}</td>
                         <td class="p-5">${l.dataName}</td>
@@ -356,12 +360,20 @@
                         <td class="p-5 text-emerald-600 font-bold">SUCCESS</td>
                     </tr>
                 `).join('');
+            } else {
+                body.innerHTML = '<tr><td colspan="4" class="p-10 text-center text-slate-400 italic">ไม่พบประวัติการบันทึกของคุณในเครื่องนี้</td></tr>';
             }
         }
 
         window.onload = () => {
             const user = localStorage.getItem('fuzeUser');
-            if(user) showMainApp(user);
+            if(user) {
+                showMainApp(user);
+            } else {
+                // มั่นใจว่าถ้ายังไม่ Login ประวัติจะไม่โผล่
+                document.getElementById('loginSection').classList.remove('hidden');
+                document.getElementById('mainForm').classList.add('hidden');
+            }
         }
     </script>
 </body>
