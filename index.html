@@ -59,15 +59,23 @@
                 <form id="dataForm" class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
                     
                     <div>
-                        <label class="field-label">1. ชื่อตำแหน่ง (แผนก)</label>
-                        <select id="dept" required class="input-style bg-slate-50">
-                            <option value="">-- เลือกแผนก --</option>
-                            <option value="IT">IT</option><option value="HR">HR</option><option value="Finance">Finance</option>
-                            <option value="Legal">Legal</option><option value="transport">transport</option><option value="HUB">HUB</option>
-                            <option value="Claim">Claim</option><option value="CS">CS</option><option value="Sales">Sales</option>
-                            <option value="Administrative">Administrative</option><option value="Marketing">Marketing</option><option value="OS">OS</option>
-                        </select>
-                    </div>
+    <label class="field-label">1. ชื่อตำแหน่ง (แผนก)</label>
+    <select id="dept" required class="input-style bg-slate-50">
+        <option value="">-- เลือกแผนก --</option>
+        <option value="IT">IT</option>
+        <option value="HR">HR</option>
+        <option value="Finance">Finance</option>
+        <option value="Legal">Legal</option>
+        <option value="transport">transport</option>
+        <option value="HUB">HUB</option>
+        <option value="Claim">Claim</option>
+        <option value="CS">CS</option>
+        <option value="Sales">Sales</option>
+        <option value="Administrative">Administrative</option>
+        <option value="Marketing">Marketing</option>
+        <option value="OS">OS</option>
+        <option value="Strategy">Strategy</option> </select>
+</div>
 
                     <div>
                         <label class="field-label">2. ชื่อข้อมูล (ระบุเป็นข้อความ)</label>
@@ -134,21 +142,22 @@
                     </div>
 
                     <div class="md:col-span-2 bg-slate-50 p-6 rounded-2xl border border-slate-200">
-                        <label class="field-label">9. แผนกที่สามารถเข้าถึงข้อมูลชุดนี้ได้</label>
-                        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 text-xs mt-4">
-                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="IT"> IT</label>
-                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="HR"> HR</label>
-                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Finance"> Finance</label>
-                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Legal"> Legal</label>
-                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="transport"> transport</label>
-                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="HUB"> HUB</label>
-                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Claim"> Claim</label>
-                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="CS"> CS</label>
-                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Sales"> Sales</label>
-                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Admin"> Admin</label>
-                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Marketing"> Marketing</label>
-                            <label class="flex items-center gap-2"><input type="checkbox" name="access" value="OS"> OS</label>
-                        </div>
+    <label class="field-label">9. แผนกที่สามารถเข้าถึงข้อมูลชุดนี้ได้</label>
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 text-xs mt-4">
+        <label class="flex items-center gap-2"><input type="checkbox" name="access" value="IT"> IT</label>
+        <label class="flex items-center gap-2"><input type="checkbox" name="access" value="HR"> HR</label>
+        <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Finance"> Finance</label>
+        <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Legal"> Legal</label>
+        <label class="flex items-center gap-2"><input type="checkbox" name="access" value="transport"> transport</label>
+        <label class="flex items-center gap-2"><input type="checkbox" name="access" value="HUB"> HUB</label>
+        <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Claim"> Claim</label>
+        <label class="flex items-center gap-2"><input type="checkbox" name="access" value="CS"> CS</label>
+        <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Sales"> Sales</label>
+        <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Admin"> Admin</label>
+        <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Marketing"> Marketing</label>
+        <label class="flex items-center gap-2"><input type="checkbox" name="access" value="OS"> OS</label>
+        <label class="flex items-center gap-2"><input type="checkbox" name="access" value="Strategy"> Strategy</label> </div>
+</div>
                     </div>
 
                     <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
@@ -259,7 +268,6 @@
             }
         }
 
-
         function showMainApp(username) {
             document.getElementById('loginSection').classList.add('hidden');
             document.getElementById('mainForm').classList.remove('hidden');
@@ -357,7 +365,4 @@
         }
     </script>
 </body>
-
 </html>
-
-
