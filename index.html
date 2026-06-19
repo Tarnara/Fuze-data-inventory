@@ -26,7 +26,6 @@
                 <h1 class="text-2xl font-extrabold tracking-tight uppercase">Data Inventory</h1>
                 <p class="text-xs opacity-80 font-light">FUZE POST CO., LTD.</p>
             </div>
-            
             <div id="userInfoDisplay" class="hidden flex items-center gap-4">
                 <div class="text-right border-r border-white/20 pr-4">
                     <p id="displayUsername" class="text-sm font-bold"></p>
@@ -79,7 +78,7 @@
 
                     <div>
                         <label class="field-label">2. ชื่อข้อมูล (ระบุเป็นข้อความ)</label>
-                        <input type="text" id="dataName" required class="input-style" placeholder="เช่น รายชื่อลูกค้า, ประวัติการจัดส่ง">
+                        <input type="text" id="dataName" required class="input-style" placeholder="เช่น รายชื่อลูกค้า, ประวัติจัดส่ง">
                     </div>
 
                     <div>
@@ -127,18 +126,17 @@
                     <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
                         <label class="field-label">7. จัดเก็บข้อมูลไว้ที่ใด (เลือกได้หลายข้อ)</label>
                         <div class="grid grid-cols-1 gap-3 mt-3 text-sm text-slate-600">
-                            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" name="storage" value="Cloud" class="w-4 h-4"> Cloud (OneDrive/SharePoint)</label>
-                            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" name="storage" value="คอมฯส่วนตัว" class="w-4 h-4"> คอมพิวเตอร์ส่วนตัว</label>
-                            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" name="storage" value="คอมฯบริษัท" class="w-4 h-4"> คอมพิวเตอร์บริษัท</label>
-                            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" name="storage" value="External Drive" class="w-4 h-4"> External Drive</label>
-                            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" name="storage" value="กระดาษ" class="w-4 h-4"> กระดาษ / แฟ้มเอกสาร</label>
+                            <label class="flex items-center gap-3"><input type="checkbox" name="storage" value="Cloud" class="w-4 h-4"> Cloud (OneDrive/SharePoint)</label>
+                            <label class="flex items-center gap-3"><input type="checkbox" name="storage" value="คอมฯส่วนตัว" class="w-4 h-4"> คอมพิวเตอร์ส่วนตัว</label>
+                            <label class="flex items-center gap-3"><input type="checkbox" name="storage" value="คอมฯบริษัท" class="w-4 h-4"> คอมพิวเตอร์บริษัท</label>
+                            <label class="flex items-center gap-3"><input type="checkbox" name="storage" value="External Drive" class="w-4 h-4"> External Drive</label>
+                            <label class="flex items-center gap-3"><input type="checkbox" name="storage" value="กระดาษ" class="w-4 h-4"> กระดาษ / แฟ้มเอกสาร</label>
                         </div>
                     </div>
 
                     <div>
                         <label class="field-label">8. จำนวนผู้ที่เข้าถึงข้อมูล (โดยประมาณ)</label>
                         <input type="number" id="userCount" class="input-style" value="0">
-                        <p class="text-[11px] text-slate-400 mt-2 italic">* ระบุเป็นตัวเลขจำนวนคน</p>
                     </div>
 
                     <div class="md:col-span-2 bg-slate-50 p-6 rounded-2xl border border-slate-200">
@@ -174,8 +172,14 @@
                         <input type="text" id="retention" class="input-style" placeholder="เช่น 5 หรือ 10">
                     </div>
 
+                    <div class="md:col-span-2 bg-blue-50/30 p-6 rounded-2xl border border-dashed border-blue-300">
+                        <label class="field-label text-blue-900">12. อัปโหลดไฟล์ตัวอย่างหรือไฟล์ประกอบ (ถ้ามี)</label>
+                        <input type="file" id="fileInput" class="w-full bg-white p-3 border rounded-xl text-sm" accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg">
+                        <p class="text-[11px] text-slate-400 mt-2 italic">* รองรับ PDF, Word, Excel, รูปภาพ ขนาดไฟล์ไม่เกิน 5MB</p>
+                    </div>
+
                     <div class="md:col-span-2 pt-6">
-                        <button type="button" onclick="confirmSave()" class="w-full bg-fuze-blue text-white font-bold py-5 rounded-2xl hover:bg-blue-800 shadow-xl transition-all transform active:scale-95 text-lg">
+                        <button type="button" onclick="confirmSave()" class="w-full bg-fuze-blue text-white font-bold py-5 rounded-2xl hover:bg-blue-800 shadow-xl transition-all text-lg">
                             บันทึกข้อมูล
                         </button>
                     </div>
@@ -185,7 +189,7 @@
             <div class="bg-white rounded-3xl shadow-lg border overflow-hidden mb-20">
                 <div class="bg-slate-900 p-5 text-white flex justify-between items-center">
                     <h3 class="font-bold text-sm">📋 ประวัติการบันทึกของคุณ (ล่าสุด)</h3>
-                    <span id="syncStatus" class="text-[10px] bg-emerald-500 px-3 py-1 rounded-full font-bold uppercase tracking-widest">Ready</span>
+                    <span id="syncStatus" class="text-[10px] bg-emerald-500 px-3 py-1 rounded-full font-bold uppercase">Ready</span>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left text-sm">
@@ -210,50 +214,20 @@
         <div class="absolute inset-0 bg-slate-900/70 backdrop-blur-md" onclick="closeModal('confirmModal')"></div>
         <div class="bg-white w-full max-w-sm rounded-[2rem] shadow-2xl z-50 p-8 text-center">
             <h3 class="text-xl font-bold text-slate-800 mb-4">ยืนยันการส่งข้อมูล?</h3>
-            <p class="text-slate-500 mb-8 text-sm leading-relaxed">ข้อมูลจะถูกส่งไปยังระบบส่วนกลาง<br>กรุณาตรวจสอบความถูกต้องก่อนกดบันทึก</p>
+            <p class="text-slate-500 mb-8 text-sm">กรุณาตรวจสอบความถูกต้องก่อนกดบันทึก</p>
             <div class="flex gap-4">
-                <button onclick="closeModal('confirmModal')" class="flex-1 py-3 border border-slate-200 rounded-xl font-semibold text-slate-500 hover:bg-slate-50">ยกเลิก</button>
-                <button onclick="submitData()" class="flex-1 py-3 bg-fuze-blue text-white rounded-xl font-bold hover:bg-blue-800">ยืนยัน</button>
+                <button onclick="closeModal('confirmModal')" class="flex-1 py-3 border rounded-xl text-slate-500">ยกเลิก</button>
+                <button onclick="submitData()" class="flex-1 py-3 bg-fuze-blue text-white rounded-xl font-bold">ยืนยัน</button>
             </div>
         </div>
     </div>
 
-    <div id="modalPII" class="modal fixed inset-0 flex items-center justify-center z-50 p-4">
-        <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm" onclick="closeModal('modalPII')"></div>
-        <div class="bg-white w-full max-w-md rounded-2xl z-50 p-8 shadow-2xl">
-            <h4 class="font-bold text-blue-700 text-lg mb-4">ข้อมูลส่วนบุคคล (PII) คืออะไร?</h4>
-            <div class="space-y-3 text-sm text-slate-600 leading-relaxed">
-                <p>ข้อมูลที่สามารถใช้ระบุตัวตนบุคคลได้ ไม่ว่าทางตรงหรือทางอ้อม เช่น:</p>
-                <ul class="list-disc pl-5 space-y-1">
-                    <li>ชื่อ-นามสกุล, ชื่อเล่น</li>
-                    <li>เบอร์โทรศัพท์, อีเมลส่วนตัว</li>
-                    <li>เลขบัตรประชาชน, เลขใบขับขี่</li>
-                    <li>ที่อยู่บ้าน, พิกัด GPS</li>
-                </ul>
-            </div>
-            <button onclick="closeModal('modalPII')" class="w-full mt-8 bg-slate-100 py-3 rounded-xl font-bold text-slate-700">เข้าใจแล้ว</button>
-        </div>
-    </div>
-
-    <div id="modalSen" class="modal fixed inset-0 flex items-center justify-center z-50 p-4">
-        <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm" onclick="closeModal('modalSen')"></div>
-        <div class="bg-white w-full max-w-md rounded-2xl z-50 p-8 shadow-2xl border-t-8 border-red-500">
-            <h4 class="font-bold text-red-700 text-lg mb-4">ข้อมูลอ่อนไหว (Sensitive) คืออะไร?</h4>
-            <div class="space-y-3 text-sm text-slate-600 leading-relaxed">
-                <p>ข้อมูลที่มีความเสี่ยงสูงต่อการถูกเลือกปฏิบัติหรือกระทบสิทธิมนุษยชน เช่น:</p>
-                <ul class="list-disc pl-5 space-y-1">
-                    <li>ประวัติสุขภาพ / ผลตรวจร่างกาย</li>
-                    <li>ศาสนา, เชื้อชาติ</li>
-                    <li>ข้อมูลชีวภาพ (ลายนิ้วมือ, ใบหน้า)</li>
-                    <li>ประวัติอาชญากรรม</li>
-                </ul>
-            </div>
-            <button onclick="closeModal('modalSen')" class="w-full mt-8 bg-slate-100 py-3 rounded-xl font-bold text-slate-700">เข้าใจแล้ว</button>
-        </div>
-    </div>
+    <div id="modalPII" class="modal fixed inset-0 flex items-center justify-center z-50 p-4"><div class="absolute inset-0 bg-slate-900/50" onclick="closeModal('modalPII')"></div><div class="bg-white w-full max-w-md rounded-2xl z-50 p-8 shadow-2xl"><h4 class="font-bold text-blue-700 text-lg mb-4">ข้อมูลส่วนบุคคล (PII) คืออะไร?</h4><p class="text-sm text-slate-600 leading-relaxed">ข้อมูลที่ใช้ระบุตัวตนบุคคลได้ เช่น ชื่อ-นามสกุล, เบอร์โทรศัพท์, อีเมลส่วนตัว, เลขบัตรประชาชน, พิกัดที่อยู่</p><button onclick="closeModal('modalPII')" class="w-full mt-6 bg-slate-100 py-2 rounded-xl font-bold">ปิด</button></div></div>
+    <div id="modalSen" class="modal fixed inset-0 flex items-center justify-center z-50 p-4"><div class="absolute inset-0 bg-slate-900/50" onclick="closeModal('modalSen')"></div><div class="bg-white w-full max-w-md rounded-2xl z-50 p-8 shadow-2xl border-t-8 border-red-500"><h4 class="font-bold text-red-700 text-lg mb-4">ข้อมูลอ่อนไหว (Sensitive) คืออะไร?</h4><p class="text-sm text-slate-600 leading-relaxed">ข้อมูลที่มีความเสี่ยงสูงหากรั่วไหล เช่น ประวัติการรักษาพยาบาล, ลายนิ้วมือ/ใบหน้า, ศาสนา, เชื้อชาติ, ประวัติอาชญากรรม</p><button onclick="closeModal('modalSen')" class="w-full mt-6 bg-slate-100 py-2 rounded-xl font-bold">ปิด</button></div></div>
 
     <script>
-        const FLOW_URL = "https://default5db8bf0e85924ed082b2a6d4d77933.d4.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/a7bb29055f0648f5a331a0a7d6887c71/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=LXXDukKgbMKJpDwl5G52e6lfs4Ik4aJp3BYr3Uecvu8"; 
+        // ⚠️ วางข้อความ URL จาก Power Automate ตัวใหม่ของคุณในบรรทัดนี้
+        const FLOW_URL = "วาง_URL_จาก_POWER_AUTOMATE_ตัวใหม่ที่นี่"; 
 
         function validateAndLogin() {
             const email = document.getElementById('emailInput').value.trim().toLowerCase();
@@ -271,7 +245,7 @@
             document.getElementById('mainForm').classList.remove('hidden');
             document.getElementById('userInfoDisplay').classList.remove('hidden');
             document.getElementById('displayUsername').innerText = username;
-            loadLogs(); // โหลดประวัติเฉพาะของ user นี้
+            loadLogs();
         }
 
         function logout() {
@@ -284,8 +258,14 @@
         function confirmSave() {
             const required = ['dept', 'dataName', 'owner', 'dataType'];
             for(let id of required) {
-                if(!document.getElementById(id).value) return alert("กรุณากรอกข้อมูลในข้อ 1-4 ให้ครบถ้วน");
+                if(!document.getElementById(id).value) return alert("กรุณากรอกข้อมูลข้อ 1-4 ให้ครบถ้วน");
             }
+            
+            const fileEl = document.getElementById('fileInput');
+            if (fileEl.files.length > 0 && fileEl.files[0].size > 5 * 1024 * 1024) {
+                return alert("❌ ขนาดไฟล์ห้ามเกิน 5MB ครับ");
+            }
+            
             document.getElementById('confirmModal').classList.add('active');
         }
 
@@ -296,8 +276,22 @@
             closeModal('confirmModal');
             const currentUser = localStorage.getItem('fuzeUser');
             document.getElementById('syncStatus').innerText = "PENDING...";
-            document.getElementById('syncStatus').className = "text-[10px] bg-amber-500 px-3 py-1 rounded-full font-bold uppercase tracking-widest";
+            document.getElementById('syncStatus').className = "text-[10px] bg-amber-500 px-3 py-1 rounded-full font-bold uppercase";
             
+            const fileEl = document.getElementById('fileInput');
+            let fileContentBase64 = "";
+            let fileNameStr = "";
+            
+            if (fileEl.files.length > 0) {
+                const file = fileEl.files[0];
+                fileNameStr = file.name;
+                fileContentBase64 = await new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onloadend = () => resolve(reader.result.split(',')[1]);
+                    reader.readAsDataURL(file);
+                });
+            }
+
             const payload = {
                 user: currentUser,
                 dept: document.getElementById('dept').value,
@@ -311,7 +305,9 @@
                 access: Array.from(document.querySelectorAll('input[name="access"]:checked')).map(el => el.value).join(', '),
                 protect: Array.from(document.querySelectorAll('input[name="protect"]:checked')).map(el => el.value).join(', '),
                 retention: document.getElementById('retention').value,
-                timestamp: new Date().toLocaleString('th-TH')
+                timestamp: new Date().toLocaleString('th-TH'),
+                fileName: fileNameStr,
+                fileContent: fileContentBase64
             };
 
             try {
@@ -322,24 +318,24 @@
                 });
 
                 if(res.ok) {
-                    alert("✅ ข้อมูลถูกบันทึกเข้า OneDrive สำเร็จ!");
+                    alert("✅ ข้อมูลและไฟล์ประกอบถูกบันทึกสำเร็จ!");
                     saveLocal(payload);
                     document.getElementById('dataForm').reset();
                     loadLogs();
                 } else {
-                    alert("❌ บันทึกไม่สำเร็จ: ตรวจสอบการตั้งค่าใน Power Automate");
+                    alert("❌ บันทึกไม่สำเร็จ: ตรวจสอบความถูกต้องของ URL และตัวแปร Flow หลังบ้านอีกครั้ง");
                 }
             } catch (e) {
-                alert("❌ เกิดข้อผิดพลาดในการเชื่อมต่อ (Network Error)");
+                alert("❌ เกิดข้อผิดพลาดในการเชื่อมต่อเครือข่าย");
             } finally {
                 document.getElementById('syncStatus').innerText = "Ready";
-                document.getElementById('syncStatus').className = "text-[10px] bg-emerald-500 px-3 py-1 rounded-full font-bold uppercase tracking-widest";
+                document.getElementById('syncStatus').className = "text-[10px] bg-emerald-500 px-3 py-1 rounded-full font-bold uppercase";
             }
         }
 
         function saveLocal(data) {
             let logs = JSON.parse(localStorage.getItem('fuzeLogs') || "[]");
-            data.ownerUser = localStorage.getItem('fuzeUser'); // ระบุเจ้าของข้อมูล
+            data.ownerUser = localStorage.getItem('fuzeUser');
             logs.unshift(data);
             localStorage.setItem('fuzeLogs', JSON.stringify(logs.slice(0, 10)));
         }
@@ -347,7 +343,6 @@
         function loadLogs() {
             const currentUser = localStorage.getItem('fuzeUser');
             const allLogs = JSON.parse(localStorage.getItem('fuzeLogs') || "[]");
-            // กรองประวัติเฉพาะของ User ปัจจุบัน
             const userLogs = allLogs.filter(log => log.ownerUser === currentUser);
             
             const body = document.getElementById('logBody');
@@ -367,13 +362,7 @@
 
         window.onload = () => {
             const user = localStorage.getItem('fuzeUser');
-            if(user) {
-                showMainApp(user);
-            } else {
-                // มั่นใจว่าถ้ายังไม่ Login ประวัติจะไม่โผล่
-                document.getElementById('loginSection').classList.remove('hidden');
-                document.getElementById('mainForm').classList.add('hidden');
-            }
+            if(user) showMainApp(user);
         }
     </script>
 </body>
